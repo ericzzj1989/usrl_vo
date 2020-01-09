@@ -4,7 +4,7 @@
 
 namespace usrl_vo {
 
-struct Map {
+class Map {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;

@@ -22,7 +22,7 @@ public:
 
     MapPoint(long id, Vec3 position);
 
-    Vec3 Pos() {
+    Vec3 GetPos() {
         std::unique_lock<std::mutex> lck(data_mutex_);
         return pos_;
     }
