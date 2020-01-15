@@ -3,6 +3,8 @@
 #ifndef MAPPOINT_H
 #define MAPPOINT_H
 
+#include "Common.h"
+
 namespace usrl_vo {
 
 struct MapPoint {

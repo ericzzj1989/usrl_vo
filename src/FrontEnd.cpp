@@ -91,7 +91,7 @@ int FrontEnd::FindFeaturesInRight() {
     }
 
     std::vector<uchar> status;
-    Mat error;
+    cv::Mat error;
     cv::calcOpticalFlowPyrLK(current_frame_->left_img_, current_frame_->right_img_, 
                              kps_left, kps_right, status, error, cv::Size(11, 11), 3,
                              cv::TermCriteria(cv::TermCriteria::COUNT + cv::TermCriteria::EPS, 30, 0.01),
@@ -119,12 +119,12 @@ bool FrontEnd::BuildInitMap() {
     int cnt_init_landmarks = 0;
     for(size_t i = 0; i < current_frame_->features_left_.size(); ++i) {
         if(current_frame_->features_right_[i] == nullptr) continue; 
-        std::vector<Vec3> points{
+        std::vector<Vec3d> points{
             camera_left_->pixel2camera(Vec2(current_frame_->features_left_[i]->position_.pt.x,
                                                 current_frame_->features_left_[i]->position_.pt.y)),
             camera_right_->pixel2camera(Vec2(current_frame_->features_right_[i]->position_.pt.x,
                                                  current_frame_->features_right_[i]->position_.pt.y))};
-        Vec3 p_world = Vec3::Zero();
+        Vec3d p_world = Vec3d::Zero();
 
         if (triangulation(poses, points, p_world) && pworld[2] > 0) {
             auto new_map_point = MapPoint::CreateNewMappoint();
@@ -157,7 +157,7 @@ bool FrontEnd::Track() {
     int num_track_last = TrackLastFrame();
     tracking_inliers_ = EstimateCurrentPose();
 
-    if(tracking_inliers_ > num_features_tracking_) {
+    if(tracking_inliers_ > num_features_tracking_good_) {
         status_ = FrontEndStatus::TRACKING_GOOD;
     } else if(tracking_inliers_ > num_features_tracking_bad_) {
         status_ = FrontEndStatus::TRACKING_BAD;
@@ -227,7 +227,7 @@ int FrontEnd::EstimateCurrentPose() {
     optimizer.addVertex(vertex_pose);
 
     //K
-    Mat33 K = camrea_left_->K();
+    Mat33d K = camrea_left_.K_;
 
     //edges
     int index = 1;
@@ -335,15 +335,15 @@ int FrontEnd::TriangukateNewPoints() {
     for(size_t i = 0; i < current_frame_->features_left_.size(); ++i) {
         if(current_frame_->features_left_[i]->map_point_.expired() && 
            current_frame_->features_right_[i] != nullptr) {
-               std::vector<Vec3> points{
+               std::vector<Vec3d> points{
                    camera_left_->pixel2camera(
-                       Vec2(current_frame_->features_left_[i]->postion_.pt.x,
+                       Vec2d(current_frame_->features_left_[i]->postion_.pt.x,
                             current_frame_->features_left_[i]->postion_.pt.y)),
                     camera_right_->pixel2camera(
-                        Vec2(current_frame_->features_right_[i]->postion_.pt.x,
+                        Vec2d(current_frame_->features_right_[i]->postion_.pt.x,
                              current_frame_->features_right_[i]->postion_.pt.y))
                };
-               Vec3 pworld = Vec3::Zero();
+               Vec3d pworld = Vec3d::Zero();
 
                 if(triangulation(pose, points, pworld) && pworld[2] > 0) {
                     auto new_map_point = MapPoint::CreateNewMapPoint();

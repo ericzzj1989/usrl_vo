@@ -3,8 +3,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "camera.h"
-#include "common_include.h"
+#include "Common.h"
+#include "Camera.h"
 
 namespace usrl_vo {
     

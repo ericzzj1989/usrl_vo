@@ -3,6 +3,8 @@
 #ifndef FEATURE_H
 #define FEATURE_H
 
+#include "Common.h"
+
 namespace usrl_vo {
 
 struct Feature {

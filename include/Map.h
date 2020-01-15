@@ -2,6 +2,8 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include "Common.h"
+
 namespace usrl_vo {
 
 class Map {
