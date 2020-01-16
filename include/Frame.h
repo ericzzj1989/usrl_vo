@@ -29,6 +29,7 @@ public:
     
     Frame(long id, double time_stamp, const SE3 & pose, const cv::Mat &left, const cv::Mat &right);
 
+    //Tcw
     SE3 GetPose() {
         std::unique_lock<std::mutex> lck(pose_mutex_);
         return pose_;

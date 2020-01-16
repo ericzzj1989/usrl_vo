@@ -7,7 +7,7 @@
 
 namespace usrl_vo {
 
-struct MapPoint {
+class MapPoint {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
@@ -20,32 +20,19 @@ public:
     std::list<std::weak_ptr<Feature>> observations_;
 
 public:
-    MapPoint() {}
+    MapPoint();
 
     MapPoint(long id, Vec3 position);
 
-    Vec3 GetPos() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return pos_;
-    }
+    Vec3 GetPos();
 
-    void SetPos(const Vec3 &pos) {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        pos_ = pos;
-    }
-
-    void AddObservation(std::shared_ptr<Feature> feature) {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        observations_.push_back(feature);
-        observed_times_++;
-    }
+    void SetPos(const Vec3 &pos);
+    
+    void AddObservation(std::shared_ptr<Feature> feature);
 
     void RemoveObservation(std::shared_ptr<Feature> feat);
 
-    std::list<std::weak_ptr<Feature>> GetObs() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return observations_;
-    }
+    std::list<std::weak_ptr<Feature>> GetObs();
 
     static MapPoint::Ptr CreateNewMapPoint();
 

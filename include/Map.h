@@ -12,34 +12,22 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<Map> Ptr;
     typedef std::unordered_map<unsigned long, MapPoint::Ptr> LandmarksType;
-    typedef std::unordered_map<unsigned long, Frame:Ptr> KeyframesType;
+    typedef std::unordered_map<unsigned long, Frame::Ptr> KeyframesType;
 
 public:
-    Map() {}
+    Map();
 
     void InsertKeyFrame(Frame::Ptr frame);
 
     void InsertMapPoint(MapPoint::Ptr map_point);
 
-    LandmarksType GeetAllMapPoints() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return landmarks_;
-    }
+    LandmarksType GetAllMapPoints();
 
-    KeyframesType GetAllKeyFrames() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return keyframes_;
-    }
+    KeyframesType GetAllKeyFrames();
 
-    LandmarksType GetActiveMapPoints() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return active_landmarks_;
-    }
+    LandmarksType GetActiveMapPoints();
 
-    KeyframesType GetActiveKeyFrames() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return active_keyframes_;
-    }
+    KeyframesType GetActiveKeyFrames();
 
     void CleanMap();
 
