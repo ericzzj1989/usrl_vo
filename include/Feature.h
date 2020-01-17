@@ -7,7 +7,7 @@
 
 namespace usrl_vo {
 
-struct Feature {
+class Feature {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
@@ -20,10 +20,9 @@ public:
     bool is_on_left_image_ = true;
 
 public: 
-    Feature() {}
+    Feature();
 
-    Feature(std::shared_ptr<Frame> frame, const cv::KeyPoint &kp)
-    : frame_(frame), position_(kp) {}
+    Feature(std::shared_ptr<Frame> frame, const cv::KeyPoint &kp);
 
 };
 

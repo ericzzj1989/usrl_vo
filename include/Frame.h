@@ -8,7 +8,7 @@
 
 namespace usrl_vo {
     
-struct Frame {
+class Frame {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
@@ -25,23 +25,18 @@ public:
     std::vector<std::shared_ptr<Feature>> features_right_;
 
 public:
-    Frame() {}
+    Frame();
     
     Frame(long id, double time_stamp, const SE3 & pose, const cv::Mat &left, const cv::Mat &right);
 
     //Tcw
-    SE3 GetPose() {
-        std::unique_lock<std::mutex> lck(pose_mutex_);
-        return pose_;
-    }
+    SE3 GetPose();
 
-    void SetPose(const SE3 &pose) {
-        std::unique_lock<std::mutex> lck(pose_mutex_);
-        pose_ = pose;
-    }
+    void SetPose(const SE3 &pose);
 
     void SetKeyFrame();
-    static std::shared_ptr<Frame> CreateFrame();
+
+    static Frame::Ptr CreateFrame();
 
 };
 

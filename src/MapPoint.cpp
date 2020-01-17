@@ -29,7 +29,7 @@ void MapPoint::AddObservation(std::shared_ptr<Feature> feature) {
 }
 
 MapPoint::Ptr MapPoint::CreateNewMapPoint() {
-    stataic long factory_id = 0;
+    static long factory_id = 0;
     MapPoint::Ptr new_mappoint(new MapPoint);
     new_mappoint->id_ = factory_id++;
     return new_mappoint;

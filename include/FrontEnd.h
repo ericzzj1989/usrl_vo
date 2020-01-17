@@ -19,14 +19,14 @@ enum class FrontEndStatus {
     LOST
 };
     
-class Frontend {
+class FrontEnd {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<FrontEnd> Ptr;
 
 public:
-    Frontend();
+    FrontEnd();
 
     bool AddFrame(Frame::Ptr frame);
 
@@ -42,7 +42,7 @@ public:
         viewer_ = viewer;
     }
 
-    FrontEndStatus GetStatus() const {
+    inline FrontEndStatus GetStatus() {
         return status_;
     }
 
@@ -74,7 +74,7 @@ private:
 
     bool Reset();
 
-    FrontendStatus status_ = FrontendStatus::INITING;
+    FrontEndStatus status_ = FrontEndStatus::INITING;
 
     Frame::Ptr current_frame_ = nullptr;
     Frame::Ptr last_frame_ = nullptr;
@@ -82,7 +82,7 @@ private:
     Camera::Ptr camera_right_ = nullptr;
 
     Map::Ptr map_ = nullptr;
-    std::shared_ptr<Backend> backeend_ = nullptr;
+    std::shared_ptr<BackEnd> backend_ = nullptr;
     std::shared_ptr<Viewer> viewer_ = nullptr;
 
     SE3 relative_motion_;
