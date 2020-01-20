@@ -19,14 +19,9 @@ public:
 public:
     BackEnd();
 
-    void SetMap(Map::Ptr map) {
-        map_ = map
-    };
+    void SetMap(Map::Ptr map);
 
-    void SetCameras(Camera::Ptr left, Camera::Ptr right) {
-        camera_left_ = left;
-        camera_right_ = right;
-    }
+    void SetCameras(Camera::Ptr left, Camera::Ptr right);
 
     void UpdateMap();
 
