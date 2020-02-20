@@ -1,40 +1,43 @@
-#pragma once
-
 #ifndef MAPPOINT_H
 #define MAPPOINT_H
 
-#include "Common.h"
+#include "include/Common.h"
+#include "include/Feature.h"
 
 namespace usrl_vo {
+
+class Feature;
 
 class MapPoint {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<MapPoint> Ptr;
-    unsigned long id_ = 0;
+    long unsigned int id_ = 0;
     bool is_outlier_ = false;
-    Vec3 pos_ = Vec3::Zero();
+    cv::Mat world_pos_;
+    static std::mutex global_mutex;
     std::mutex data_mutex_;
     int observed_times_ = 0;
-    std::list<std::weak_ptr<Feature>> observations_;
+    std::list<Feature*> observations_;
+    static long unsigned int num_next_id;
 
 public:
-    MapPoint();
+    MapPoint(const cv::Mat &pos);
 
-    MapPoint(long id, Vec3 position);
+    // MapPoint(long id, Vec3d position);
 
-    Vec3 GetPos();
+    cv::Mat GetWorldPos();
 
-    void SetPos(const Vec3 &pos);
+    void SetWorldPos(const cv::Mat &pos);
     
-    void AddObservation(std::shared_ptr<Feature> feature);
+    void AddObservation(Feature* feature);
 
-    void RemoveObservation(std::shared_ptr<Feature> feat);
+    void RemoveObservation(Feature* feature);
 
-    std::list<std::weak_ptr<Feature>> GetObs();
+    // std::list<std::weak_ptr<Feature>> GetObs();
 
-    static MapPoint::Ptr CreateNewMapPoint();
+    // MapPoint* static CreateNewMapPoint();
 
 };
 

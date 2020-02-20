@@ -1,55 +1,54 @@
-#include "MapPoint.h"
-#include "Feature"
+#include "include/MapPoint.h"
 
 namespace usrl_vo {
 
-MapPoint::MapPoint() {
+long unsigned int MapPoint::num_next_id = 0;
+std::mutex MapPoint::global_mutex;
 
+MapPoint::MapPoint(const cv::Mat &pos)
+{
+    pos.copyTo(world_pos_);
+    id_ = num_next_id++;
 }
 
-MapPoint::MapPoint(long id, Vec3 position)
-    :id_(id), pos_(position) {
-
+void MapPoint::SetWorldPos(const cv::Mat &pos)
+{
+    std::unique_lock<std::mutex> lock2(global_mutex);
+    std::unique_lock<std::mutex> lock(data_mutex_);
+    pos.copyTo(world_pos_);
 }
 
-Vec3 MapPoint::GetPos() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return pos_;
+cv::Mat MapPoint::GetWorldPos()
+{
+    std::unique_lock<std::mutex> lock(data_mutex_);
+    return world_pos_.clone();
 }
 
-void MapPoint::SetPos(const Vec3 &pos) {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        pos_ = pos;
-    }
-
-void MapPoint::AddObservation(std::shared_ptr<Feature> feature) {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        observations_.push_back(feature);
-        observed_times_++;
+void MapPoint::AddObservation(Feature* feature)
+{
+    std::unique_lock<std::mutex> lock(data_mutex_);
+    observations_.push_back(feature);
+    observed_times_++;
 }
 
-MapPoint::Ptr MapPoint::CreateNewMapPoint() {
-    static long factory_id = 0;
-    MapPoint::Ptr new_mappoint(new MapPoint);
-    new_mappoint->id_ = factory_id++;
-    return new_mappoint;
-}
-
-void MapPoint::RemoveObservation(std::shared_ptr<Feature> feature) {
-    std::unique_lock<std::mutex> lck(data_mutex_);
-    for(auto iter = observations_.begin(); iter != observations_.end(); iter++) {
-        if(iter->lock() == feature) {
-            observations_.erase(iter);
-            feature->map_point_.reset();
+void MapPoint::RemoveObservation(Feature* feature)
+{
+    // std::unique_lock<std::mutex> lock(data_mutex_);
+    for(std::list<Feature*>::iterator lit = observations_.begin(), lend = observations_.end(); lit != lend; lit++)
+    {
+        if(*lit == feature)
+        {
+            lit = observations_.erase(lit);
+            feature->map_point_ = static_cast<MapPoint*>(NULL);
             observed_times_--;
             break;
         }
     }
 }
 
-std::list<std::weak_ptr<Feature>> MapPoint::GetObs() {
-        std::unique_lock<std::mutex> lck(data_mutex_);
-        return observations_;
-    }
+// std::list<Feature*> MapPoint::GetObs() {
+//         std::unique_lock<std::mutex> lock(data_mutex_);
+//         return observations_;
+//     }
 
 }

@@ -1,49 +1,59 @@
-#pragma once
 #ifndef MAP_H
 #define MAP_H
 
-#include "Common.h"
+#include "include/Common.h"
+#include "include/Frame.h"
+#include "include/MapPoint.h"
+#include "include/Feature.h"
+#include "include/Converter.h"
 
 namespace usrl_vo {
 
+class Frame;
+class MapPoint;
+class Feature;
+
 class Map {
+
+// public:
+//     typedef std::unordered_map<unsigned long, MapPoint::Ptr> LandmarksType;
+//     typedef std::unordered_map<unsigned long, Frame::Ptr> KeyframesType;
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
-    typedef std::shared_ptr<Map> Ptr;
-    typedef std::unordered_map<unsigned long, MapPoint::Ptr> LandmarksType;
-    typedef std::unordered_map<unsigned long, Frame::Ptr> KeyframesType;
 
-public:
     Map();
 
-    void InsertKeyFrame(Frame::Ptr frame);
+    void InsertKeyFrame(Frame* frame);
 
-    void InsertMapPoint(MapPoint::Ptr map_point);
+    void InsertMapPoint(MapPoint* map_point);
 
-    LandmarksType GetAllMapPoints();
+    std::unordered_map<unsigned long, MapPoint*> GetAllMapPoints();
 
-    KeyframesType GetAllKeyFrames();
+    std::unordered_map<unsigned long, Frame*> GetAllKeyFrames();
 
-    LandmarksType GetActiveMapPoints();
+    std::unordered_map<unsigned long, MapPoint*> GetActiveMapPoints();
 
-    KeyframesType GetActiveKeyFrames();
+    std::unordered_map<unsigned long, Frame*> GetActiveKeyFrames();
+
+    long unsigned int ActiveKeyFramesInMap();
 
     void CleanMap();
+
+    std::mutex map_update_mutex_;
 
 private:
     void RemoveOldKeyframe();
 
     std::mutex data_mutex_;
-    LandmarksType landmarks_;
-    LandmarksType active_landmarks_;
-    KeyframesType keyframes_;
-    KeyframesType active_keyframes_;
+    std::unordered_map<unsigned long, MapPoint*> landmarks_;
+    std::unordered_map<unsigned long, MapPoint*> active_landmarks_;
+    std::unordered_map<unsigned long, Frame*> keyframes_;
+    std::unordered_map<unsigned long, Frame*> active_keyframes_;
 
-    Frame::Ptr current_frame_ = nullptr;
+    Frame* current_frame_;
 
-    int num_active_keyframes_ = 7;
-
+    unsigned int num_active_keyframes_ = 7;
 };
 
 }

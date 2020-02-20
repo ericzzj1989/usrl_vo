@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5    -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g   -o CMakeFiles/stereo_kitti.dir/examples/stereo/stereo_kitti.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/examples/stereo/stereo_kitti.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/examples/stereo/stereo_kitti.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/VisualOdometry.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/VisualOdometry.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/VisualOdometry.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/FrontEnd.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/FrontEnd.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/FrontEnd.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/Converter.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/Converter.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/Converter.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/Frame.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/Frame.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/Frame.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/Feature.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/Feature.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/Feature.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/MapPoint.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/MapPoint.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/MapPoint.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/Map.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/Map.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/Map.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/BackEnd.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/BackEnd.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/BackEnd.cpp"
+},
+{
+  "directory": "/home/eric/eric_source_code/my_vo/usrl_vo/build",
+  "command": "/usr/bin/g++-5   -Dusrl_vo_EXPORTS -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev -isystem /opt/ros/kinetic/include/opencv-3.3.1-dev/opencv -isystem /usr/include/eigen3 -isystem /home/eric/eric_source_code/my_vo/Pangolin/include -isystem /home/eric/eric_source_code/my_vo/Pangolin/build/src/include -I/home/eric/eric_source_code/my_vo/usrl_vo -I/home/eric/eric_source_code/my_vo/usrl_vo/include}  -std=c++11 -Wall -g -fPIC   -o CMakeFiles/usrl_vo.dir/src/Viewer.cpp.o -c /home/eric/eric_source_code/my_vo/usrl_vo/src/Viewer.cpp",
+  "file": "/home/eric/eric_source_code/my_vo/usrl_vo/src/Viewer.cpp"
+}
+]

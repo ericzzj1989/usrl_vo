@@ -1,11 +1,16 @@
-#pragma once
-
 #ifndef FEATURE_H
 #define FEATURE_H
 
-#include "Common.h"
+#include <memory>
+#include <opencv2/features2d.hpp>
+
+#include "include/Common.h"
+#include "include/Frame.h"
 
 namespace usrl_vo {
+
+class Frame;
+class MapPoint;
 
 class Feature {
 
@@ -13,17 +18,14 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<Feature> Ptr;
 
-    std::weak_ptr<Frame> frame_;
+    Frame* frame_;
     cv::KeyPoint position_;
-    std::weak_ptr<MapPoint> map_point_;
-    bool is_outlier_ = false;
-    bool is_on_left_image_ = true;
+    MapPoint* map_point_;
+    bool is_outlier_;
+    bool is_on_left_image_;
 
-public: 
-    Feature();
-
-    Feature(std::shared_ptr<Frame> frame, const cv::KeyPoint &kp);
-
+public:
+    Feature(Frame* frame, const cv::KeyPoint &kp);
 };
 
 }
