@@ -23,23 +23,16 @@ VisualOdometry::VisualOdometry(const std::string &settings_file, const SensorTyp
     map_ = new Map();
 
     backend_ = new BackEnd(settings_file, map_);
-    backend_thread_ = new thread(&usrl_vo::BackEnd::BackEndLoop);
+    // backend_thread_ = new thread(&usrl_vo::BackEnd::BackEndLoop);
 
     frontend_ = new FrontEnd(settings_file, map_, backend_);
 
     if(use_viewer)
     {
         viewer_ = new Viewer(map_);
-        viewer_thread_ = new std::thread(&Viewer::Run, viewer_));
+        // viewer_thread_ = new std::thread(&Viewer::Run, viewer_));
         frontend_->SetViewer(viewer_);
     }
-
-    // frontend_->SetBackEnd(backend_);
-    // frontend_->SetMap(map_);
-    // frontend_->SetCameras();
-
-    // backend_->SetMap(map_);
-    // frontend_->SetCameras();
 }
 
 cv::Mat VisualOdometry::RunStereo(const cv::Mat &im_left, const cv::Mat &im_right, const double &time_stamp)

@@ -6,7 +6,6 @@ namespace usrl_vo {
 
 FrontEnd::FrontEnd(const std::string &setting_path, Map* map, BackEnd* backend):
     status_(NO_IMAGES), map_(map), backend_(backend), viewer_(NULL)
-   // current_frame_(NULL), new_frame_(NULL), last_frame_(NULL)
 {
     cv::FileStorage fSettings(setting_path, cv::FileStorage::READ);
 
@@ -228,7 +227,6 @@ bool FrontEnd::BuildInitMap()
     t_rl_.copyTo(P2.rowRange(0,3).col(3));
     P2 = K_ * P2;
 
-    // std::vector<SE3> poses{camera_left_->pose(), camera_right_->pose()};
     int cnt_init_landmarks = 0;
     for(size_t i = 0; i < current_frame_->features_left_.size(); ++i)
     {
@@ -253,9 +251,6 @@ bool FrontEnd::BuildInitMap()
         map_->InsertMapPoint(new_map_point);
         cnt_init_landmarks++;
     }
-
-    // Frame* ini_frame = new Frame(current_frame_);
-    // reference_frame_ = ini_frame;
 
     current_frame_->SetKeyFrame();
     map_->InsertKeyFrame(current_frame_);
@@ -354,10 +349,6 @@ int FrontEnd::TrackLastFrame()
 int FrontEnd::EstimateCurrentPose()
 {
     //setup g2o
-    // typedef g2o::BlockSolver_6_3 BlockSolverType;
-    // typedef g2o::LinearSolverDense<BlockSolverType::PoseMatrixType> LinearSolverType;
-    // auto solver = new g2o::OptimizationAlgorithmLevenberg(
-    //     g2o::make_unique<BlockSolverType>(g2o::make_unique<LinearSolverType>));
     g2o::BlockSolver_6_3::LinearSolverType * linearSolver;
 
     linearSolver = new g2o::LinearSolverDense<g2o::BlockSolver_6_3::PoseMatrixType>();
@@ -383,10 +374,7 @@ int FrontEnd::EstimateCurrentPose()
     std::vector<Feature*> features;
     for(size_t i = 0; i < current_frame_->features_left_.size(); ++i)
     {
-        // std::cout << "current_frame_->features_left_[i] = ???????" << 
-        // current_frame_->features_left_[i]->position_.pt.x << std::endl;
         MapPoint* mp = current_frame_->features_left_[i]->map_point_;
-        // std::cout << "map point " << mp->pos_[0] << " " << mp->pos_[1] << " " << mp->pos_[2] << std::endl;
         if(mp)
         {
             Eigen::Matrix<double,2,1> obs;
@@ -415,8 +403,6 @@ int FrontEnd::EstimateCurrentPose()
             edges.push_back(edge);
             optimizer.addEdge(edge);
             // index++;
-
-            // std::cout << "Current features????? = \n" << features.size() << std::endl;
         }
     }
 
@@ -424,7 +410,6 @@ int FrontEnd::EstimateCurrentPose()
     const int its[4] = {10, 10, 10, 10};
     
     //estimate the Pose and determine the outliers
-    // const double chi2_th = 5.991;
     int cnt_outlier = 0;
     for(std::size_t iteration = 0; iteration < 4; iteration++)
     {
@@ -433,7 +418,6 @@ int FrontEnd::EstimateCurrentPose()
         optimizer.optimize(its[iteration]);
         cnt_outlier = 0;
 
-        std::cout << "edge size ======== " << edges.size() << std::endl;
         for(std::size_t i = 0, i_end = edges.size(); i < i_end; i++)
         {
             g2o::EdgeSE3ProjectXYZOnlyPose* e = edges[i];
@@ -579,17 +563,6 @@ void FrontEnd::Triangulate(const cv::KeyPoint &kp1, const cv::KeyPoint &kp2, con
     p_3d = vt.row(3).t();
     p_3d = p_3d.rowRange(0,3)/p_3d.at<float>(3);
 }
-
-// Vec3d FrontEnd::WorldToCamera(const Vec3d &p_w, const SE3 &T_cw, const SE3 &ext) {
-//     return ext * T_cw * p_w;
-// }
-
-// Vec2d FrontEnd::CameraToPixel(const Vec3d &p_c, const Mat33d &K) {
-//     return Vec2d(
-//         K(0, 0) * p_c(0, 0) / p_c(2, 0) + K(0, 2),
-//         K(1, 1) * p_c(1, 0) / p_c(2, 0) + K(1, 2)
-//     );
-// }
 
 cv::Point2f FrontEnd::WorldToPixelinLeft(const cv::Mat &p_w, const cv::Mat &T_cw, const cv::Mat &K)
 {

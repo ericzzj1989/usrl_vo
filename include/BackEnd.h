@@ -23,10 +23,6 @@ public:
 
     BackEnd(const std::string &setting_path, Map* map);
 
-    // void SetMap(std::shared_ptr<Map> map);
-
-    // void SetCameras(Camera::Ptr left, Camera::Ptr right);
-
     void UpdateMap();
 
     void Stop();
@@ -43,9 +39,6 @@ private:
 
     std::condition_variable map_update_;
     std::atomic<bool> backend_running_;
-
-    // Camera::Ptr camera_left_ = nullptr;
-    // Camera::Ptr camera_right_ = nullptr;
 
     cv::Mat K_;
     float bf_;

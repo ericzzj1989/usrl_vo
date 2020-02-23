@@ -26,20 +26,6 @@ public:
     static Eigen::Matrix<double,3,3> toMatrix33d(const cv::Mat &cvMat4);
 
     static Eigen::Matrix<double,3,1> toVector3d(const cv::Mat &cvVector);
-
-    #if 0
-    Vec3d WorldToCamera(const Vec3d &p_w, const SE3 &T_cw);
-
-    Vec3d CameraToWorld(const Vec3d &p_c, const SE3 &T_cw);
-
-    Vec2d CameraToPixel(const Vec3d &p_c, const Mat33d &K);
-
-    Vec3d PixelToCamera(const Vec2d &p_uv, const double &depth, const Mat33d &K);
-
-    Vec2d WorldToPixel(const Vec3d &p_w, const SE3 &T_cw, const Mat33d &K);
-
-    Vec3d PixelToWorld(const Vec2d &p_uv, const SE3 &T_cw, const double &depth, const Mat33d &K);
-    #endif
 };
 
 }

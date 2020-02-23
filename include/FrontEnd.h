@@ -38,9 +38,7 @@ public:
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
-    typedef std::shared_ptr<FrontEnd> Ptr;
 
-public:
     FrontEnd(const std::string &setting_path, Map* map, BackEnd* backend);
 
     void Track();

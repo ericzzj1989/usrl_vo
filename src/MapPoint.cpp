@@ -33,7 +33,7 @@ void MapPoint::AddObservation(Feature* feature)
 
 void MapPoint::RemoveObservation(Feature* feature)
 {
-    // std::unique_lock<std::mutex> lock(data_mutex_);
+    std::unique_lock<std::mutex> lock(data_mutex_);
     for(std::list<Feature*>::iterator lit = observations_.begin(), lend = observations_.end(); lit != lend; lit++)
     {
         if(*lit == feature)
@@ -45,10 +45,5 @@ void MapPoint::RemoveObservation(Feature* feature)
         }
     }
 }
-
-// std::list<Feature*> MapPoint::GetObs() {
-//         std::unique_lock<std::mutex> lock(data_mutex_);
-//         return observations_;
-//     }
 
 }

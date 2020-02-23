@@ -16,12 +16,15 @@ class Feature {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
-    typedef std::shared_ptr<Feature> Ptr;
 
     Frame* frame_;
+
     cv::KeyPoint position_;
+
     MapPoint* map_point_;
+
     bool is_outlier_;
+    
     bool is_on_left_image_;
 
 public:

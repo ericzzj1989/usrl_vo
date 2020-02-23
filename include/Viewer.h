@@ -21,11 +21,8 @@ class Viewer {
 
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
-    typedef std::shared_ptr<Viewer> Ptr;
 
     Viewer(Map* map);
-    
-    // void SetMap(Map* map);
 
     void Close();
 
@@ -55,8 +52,6 @@ private:
     bool map_updated_ = false;
 
     std::mutex viewer_data_mutex_;
-
-    cv::Mat im_;
 
     int num_tracked_, num_rackedVO_;
 };

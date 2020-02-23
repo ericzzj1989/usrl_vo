@@ -14,11 +14,7 @@ class MapPoint;
 class Feature;
 
 class Map {
-
-// public:
-//     typedef std::unordered_map<unsigned long, MapPoint::Ptr> LandmarksType;
-//     typedef std::unordered_map<unsigned long, Frame::Ptr> KeyframesType;
-
+    
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
 

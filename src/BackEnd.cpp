@@ -31,15 +31,6 @@ BackEnd::BackEnd(const std::string &setting_path, Map* map):
     bf_ = fSettings["Camera.bf"];
 }
 
-// void BackEnd::SetMap(std::shared_ptr<Map> map) {
-//         map_ = map;
-// }
-
-// void BackEnd::SetCameras(Camera::Ptr left, Camera::Ptr right) {
-//         camera_left_ = left;
-//         camera_right_ = right;
-// }
-
 void BackEnd::UpdateMap()
 {
     std::unique_lock<std::mutex> lock(data_mutex_);
@@ -70,12 +61,6 @@ void BackEnd::BackEndLoop()
 void BackEnd::Optimize(std::unordered_map<unsigned long, Frame*> keyframes, 
                   std::unordered_map<unsigned long, MapPoint*> landmarks)
 {
-    // typedef g2o::BlockSolver_6_3 BlockSolverType;
-    // typedef g2o::LinearSolverEigen<BlockSolverType::PoseMatrixType> LinearSolverType;
-    // auto solver = new g2o::OptimizationAlgorithmLevenberg(
-    //     g2o::make_unique<BlockSolverType>(g20::make_unique<LinearSolverType>)
-    // );
-
     g2o::BlockSolver_6_3::LinearSolverType * linearSolver;
 
     linearSolver = new g2o::LinearSolverEigen<g2o::BlockSolver_6_3::PoseMatrixType>();
@@ -87,25 +72,15 @@ void BackEnd::Optimize(std::unordered_map<unsigned long, Frame*> keyframes,
     g2o::SparseOptimizer optimizer;
     optimizer.setAlgorithm(solver);
 
-    // std::cout << "keyframes = " << keyframes.size() << std::endl;
-    // std::cout << "landmarks = " << landmarks.size() << std::endl;
-
     std::map<unsigned long, g2o::VertexSE3Expmap*> vertices_keyframes;
     long unsigned int max_kf_id = 0;
 
-    // cv::Mat pose_pose = keyframes.at(1)->pose_;
-    // if(pose_pose.empty()) std::cout << "pose_pose pose_pose NULNULLNULLL" << std::endl;    
-
     for(std::unordered_map<unsigned long, Frame*>::iterator kf_it = keyframes.begin(); kf_it != keyframes.end(); kf_it++)
     {
-        // std::cout << "frame id = !!!!" << kf_it->first << std::endl;
         Frame* kf = kf_it->second;
         g2o::VertexSE3Expmap* vertex_pose = new g2o::VertexSE3Expmap();
         vertex_pose->setId(kf->keyframe_id_);
         vertex_pose->setFixed(kf->keyframe_id_ == 0);
-        // cv::Mat pose = kf->pose_;
-        // if(pose.empty()) std::cout << "NULNULLNULLL" << std::endl;
-        // std::cout << "Backend!!!!!!! = " << pose.at<float>(0,0) << std::endl;
         vertex_pose->setEstimate(Converter::toSE3Quat(kf->GetPose()));
         optimizer.addVertex(vertex_pose);
         if(kf->keyframe_id_ > max_kf_id)
@@ -116,8 +91,6 @@ void BackEnd::Optimize(std::unordered_map<unsigned long, Frame*> keyframes,
     }
 
     std::map<unsigned long, g2o::VertexSBAPointXYZ*> vertices_mappoints;
-
-    // Mat33d K = camera_left_.K_;
 
     int index = 1;
     double thHuber = sqrt(5.99);
@@ -167,9 +140,6 @@ void BackEnd::Optimize(std::unordered_map<unsigned long, Frame*> keyframes,
             edge->setVertex(1, vertices_mappoints.at(landmark_id));
             edge->setMeasurement(obs);
             edge->setInformation(Mat22d::Identity());
-            // g2o::RobustKernelHuber* rk = new g2o::RobustKernelHuber;
-            // rk->setDelta(chi2_th);
-            // edge->setRobustKernel(rk);
 
             g2o::RobustKernelHuber* rk = new g2o::RobustKernelHuber;
             edge->setRobustKernel(rk);

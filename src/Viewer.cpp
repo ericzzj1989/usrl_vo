@@ -7,10 +7,6 @@ Viewer::Viewer(Map* map):map_(map), current_frame_(NULL)
     viewer_thread_ = std::thread(std::bind(&Viewer::Run, this));
 }
 
-// void Viewer::SetMap(std::shared_ptr<Map> map) {
-//     map_ = map;
-// }
-
 void Viewer::Close()
 {
     viewer_running_ = false;
@@ -22,12 +18,6 @@ void Viewer::AddCurrentFrame(Frame* current_frame)
     std::unique_lock<std::mutex> lock(viewer_data_mutex_);
     current_frame_ = current_frame;
 }
-
-// void MapDrawer::SetCurrentCameraPose(const cv::Mat &Tcw)
-// {
-//     std::unique_lock<std::mutex> lock(viewer_data_mutex_);
-//     mCameraPose = Tcw.clone();
-// }
 
 void Viewer::UpdateMap()
 {
@@ -88,7 +78,7 @@ void Viewer::Run()
 
         cv::Mat im = DrawFrame();
         cv::imshow("USRL-VO: Current Frame", im);
-        cv::waitKey(1e3/10.0);
+        cv::waitKey(1); // 1e3/10.0
 
         pangolin::FinishFrame();
         usleep(3000);
